@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rectangle Management App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+    <style>
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .rectangle {
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Rectangles</h1>
+    <div th:if="${param.success}">
+        <div class="alert alert-success" role="alert">
+            Rectangle added successfully!
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Color</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rectangle, iterStat : ${listRectangles}">
+            <td th:text="${iterStat.count}">1</td>
+            <td>
+                <a th:href="@{/rectangles/{id}(id=${rectangle.id})}" th:text="${rectangle.name}"></a>
+            </td>
+            <td th:text="${rectangle.color}"></td>
+            <td>
+                <a th:if="${#lists.size(listRectangles) > 0}" th:href="@{/rectangles/delete/{id}(id=${rectangle.id})}" class="btn btn-danger">DELETE</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(listRectangles)}">
+            <td colspan="4" class="text-center">No rectangles available</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/rectangles/new" class="btn btn-primary">Add New Rectangle</a>
+</div>
+</body>
+</html>
