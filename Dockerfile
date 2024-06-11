@@ -3,5 +3,5 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21
-COPY --from=build /target/asn1-0.0.1-SNAPSHOT.jar /opt/app/asn_2.jar
+COPY --from=build /target/asn_2-0.0.1-SNAPSHOT.jar /opt/app/asn_2.jar
 CMD ["java", "-jar", "/opt/app/asn_2.jar"]
